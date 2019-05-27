@@ -1,0 +1,87 @@
+{
+    "name": "ProjectResourceAssign",
+    "fields": [
+        {
+            "fieldName": "projectId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "empId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "role",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "fromDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "toDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "billingType",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "billValue",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "percentageOfWork",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "projectName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "empName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "roleName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "clientName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "estimatedStaffHours",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "actualStaffHours",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181221123450",
+    "entityTableName": "project_resource_assign",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

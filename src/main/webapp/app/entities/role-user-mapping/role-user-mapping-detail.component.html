@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="roleUserMapping">
+            <h2><span>Role User Mapping</span> {{roleUserMapping.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>User Id</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.userId}}</span>
+                </dd>
+                <dt><span>Role Id</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.roleId}}</span>
+                </dd>
+                <dt><span>User Name</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.userName}}</span>
+                </dd>
+                <dt><span>Role Name</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.roleName}}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.createdAt}}</span>
+                </dd>
+                <dt><span>Updated At</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.updatedAt}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{roleUserMapping.createdBy}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/role-user-mapping', roleUserMapping.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

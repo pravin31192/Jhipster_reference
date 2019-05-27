@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+        <div class="col-12">
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                <h2 id="jhi-employee-salary-heading">Create or edit a Employee Salary</h2>
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+                    <!-- <div class="form-group" [hidden]="!employeeSalary.id">
+                        <label for="id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id"
+                            [(ngModel)]="employeeSalary.id" readonly />
+                    </div> -->
+                  <div class="row">
+
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="form-control-label">Select Department</label>
+                            <select class="form-control" name="subunit" id="field_subunit" [(ngModel)]="employeeSalary.departmentId"
+                                required (change)="loadEmployeeFromDepartment($event.target.value)">
+                                <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                                <option *ngFor="let oneSubunit of subUnitsArray" value="{{oneSubunit.id}}">{{oneSubunit.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                   <div class="col-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_employee_id">Employee </label>
+                        <select type="number" required class="form-control" name="employeeId" id="field_employee_id"
+                            [(ngModel)]="employeeSalary.employeeId">
+                            <option [ngValue]="undefined" disabled  selected>Select Employee</option>
+                                <option *ngFor="let oneEmployee of employeesInDepartment" value="{{oneEmployee.empNumber}}">{{oneEmployee.empFirstname}} {{oneEmployee.empLastname}}</option>
+                        </select>
+                    </div>
+                   </div>
+                   <div class="col-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_salary">Salary</label>
+                        <input type="number"  min="0" (keydown)="preventNegativeInput($event)" class="form-control" name="salary" id="field_salary"
+                            [(ngModel)]="employeeSalary.salary" required pattern="^\-?\d{0,13}?$"/>
+                    </div>
+                   </div>
+                  </div>
+                    <!-- <div class="form-group">
+                        <label class="form-control-label" for="field_createdAt">Created At</label>
+                        <input type="text" class="form-control" name="createdAt" id="field_createdAt"
+                            [(ngModel)]="employeeSalary.createdAt" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_updatedAt">Updated At</label>
+                        <input type="text" class="form-control" name="updatedAt" id="field_updatedAt"
+                            [(ngModel)]="employeeSalary.updatedAt" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_createdBy">Created By</label>
+                        <input type="number" class="form-control" name="createdBy" id="field_createdBy"
+                            [(ngModel)]="employeeSalary.createdBy" />
+                    </div> -->
+    
+                </div>
+                <div>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success float-right" style="margin-left: 12px">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                    <button type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'employee-salary/'+ employeeSalary.id + '/delete'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-danger float-right" style="margin-left: 12px">
+                        <fa-icon [icon]="'times'"></fa-icon>
+                        <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                    <button type="button" id="cancel-save" class="btn btn-secondary float-right" style="margin-left: 12px" (click)="previousState()">
+                        <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    

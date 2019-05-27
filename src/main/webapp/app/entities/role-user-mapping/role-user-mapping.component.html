@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Assign New User Roles</span>
+        <button id="jh-create-entity" class="btn btn-success float-right jh-create-entity create-role-user-mapping" [routerLink]="['/role-user-mapping/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Add
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="roleUserMappings">
+        <table class="table table-striped ">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <!-- <th jhiSortBy="id"><span>Serial Number</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+            <th jhiSortBy="userId"><span>User Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="roleId"><span>Role Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userName"><span>User Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="roleName"><span>Role Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="updatedAt"><span>Updated At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let roleUserMapping of roleUserMappings ;trackBy: trackId">
+                <!-- <td><a [routerLink]="['/role-user-mapping', roleUserMapping.id, 'view' ]">{{roleUserMapping.id}}</a></td> -->
+                <td><a [routerLink]="['/role-user-mapping', roleUserMapping.id, 'edit']">{{roleUserMapping.userId}}</a></td>
+                <td>{{roleUserMapping.roleId}}</td>
+                <td>{{roleUserMapping.userName}}</td>
+                <td>{{roleUserMapping.roleName}}</td>
+                <td>{{roleUserMapping.createdAt}}</td>
+                <td>{{roleUserMapping.updatedAt}}</td>
+                <td>{{roleUserMapping.createdBy}}</td>
+                <td class="text-right">
+                    <!-- <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/role-user-mapping', roleUserMapping.id, 'view' ]"
+                                class="btn btn-success btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/role-user-mapping', roleUserMapping.id, 'edit']"
+                                class="btn btn-secondary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button> -->
+                        <!-- <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'role-user-mapping/'+ roleUserMapping.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button> -->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="roleUserMappings && roleUserMappings.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

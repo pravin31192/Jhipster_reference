@@ -1,0 +1,22 @@
+entity ProjectResourceAssign{
+    projectId Integer
+    empId Integer
+    role Integer
+    fromDate LocalDate
+    toDate LocalDate
+    billingType Integer
+    billValue Float
+    percentageOfWork Float
+    projectName String
+    empName String
+    roleName String
+    clientName String
+    estimatedStaffHours Float
+    actualStaffHours Float
+    location Integer
+    status  Integer
+    createdAt LocalDate
+    updatedAt LocalDate
+}
+paginate ProjectResourceAssign with pagination
+service ProjectResourceAssign with serviceClass

@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+        <div class="col-12">
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                <h2 id="jhi-roles-heading">Create or edit a Roles</h2>
+                <div>
+                    <jhi-alert-error></jhi-alert-error>
+                    <div class="form-group" [hidden]="!roles.id">
+                        <!-- <label for="id">ID # {{roles.id}}</label> -->
+                        <!-- <input type="text" class="form-control" id="id" name="id"
+                            [(ngModel)]="roles.id" readonly /> -->
+                    </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_name">Name</label>
+                        <input type="text" class="form-control" name="name" id="field_name"
+                            [(ngModel)]="roles.name" required/>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_description">Description</label>
+                        <textarea type="text" class="form-control" name="description" id="field_description"
+                            [(ngModel)]="roles.description"  required></textarea>
+                    </div>
+                  </div>
+                </div>   
+                </div>
+                <div>
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success float-right" style="margin-left: 12px">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                    <button type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'roles/'+ roles.id + '/delete'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-danger float-right"  style="margin-left: 12px">
+                        <fa-icon [icon]="'times'"></fa-icon>
+                        <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                    <button type="button" id="cancel-save" class="btn btn-secondary float-right"  (click)     ="previousState()" style="margin-right: 12px">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    

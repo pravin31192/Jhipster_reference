@@ -1,0 +1,136 @@
+<div>
+        <h2 id="page-heading">
+        <span>Resource By Department</span>
+        </h2>
+        <jhi-alert></jhi-alert>
+        <br/>
+    
+        <div class="card-body">
+        <div *ngFor="let singleResource of getAddresses(projectResourceAssignForm); let i=index">
+        <div >
+        <div class="row">
+        <div class="col-lg-12">
+            <div class="col-lg-6" style="float:left">
+                <div class="form-group">
+                    <label for="field_roleName">
+                        Support Staff
+                    </label>
+                    <select type="text" class="form-control"name="role" id="field_role" (change)="loadResourceBasedOnRole($event.target.value, i)">
+                        <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                        <option *ngFor="let oneRole of supportArray" value="{{oneRole.id}}">{{oneRole.name}}</option>
+                    </select>
+                    <div *ngIf="getField(i).controls.role.errors && (getField(i).controls.role.touched || getField(i).controls.role.dirty) ">
+                        <div *ngIf="getField(i).controls.role.errors.required">
+                            Department is required
+                        </div>
+                    </div>
+                </div>
+    
+                
+                        <div class="form-group"> 
+                            <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="table-primary">
+                                            <td >#</td>
+                                            <td >Resource</td>
+                                            <td >Emp ID</td>
+                                            <td >Total </td>
+                                        </thead>
+                                        <tbody>
+                                            <tr  *ngFor="let oneEmployee of demo[i]; let i=index" >
+                                                <td >{{i+1}}</td>
+                                                <td>{{oneEmployee.empFirstname}} {{oneEmployee.empLastname}}</td>
+                                                <td>{{oneEmployee.employeeId}}</td>
+                                                <td>{{ i==0?demo[i].length : '' }}</td>  
+                                            </tr>
+                                        </tbody>
+                            </table>
+                
+    
+                            <div *ngIf="getField(i).controls.empId.errors && (getField(i).controls.empId.touched || getField(i).controls.empId.dirty)">
+                                
+                                <div *ngIf="getField(i).controls.empId.errors.required">
+                                    Select a resource
+                                </div>
+                                <div *ngIf="getField(i).controls.empId.errors.resourceOnSameRole">
+                                    This resource is already selected for the same role
+                                </div>
+                                <div *ngIf="getField(i).controls.empId.errors.resourceAlreadyAllocated">
+                                    This resource is already selected for the same role in this project
+                                </div>
+                                <div *ngIf="getField(i).controls.empId.errors.projectNotSelected">
+                                    Project or role not selected
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+    
+    
+            <!-- Engineering -->
+            <div class="col-lg-6"  style="float:left">
+                <div class="form-group">
+                    <label for="field_roleName">
+                        Engineering Staff
+                    </label>
+                    <select type="text" class="form-control" name="role" id="field_role" (change)="loadResourceBasedOnRoleEng($event.target.value, i)">
+                        <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                        <option *ngFor="let oneRole of engineeringArray" value="{{oneRole.id}}">{{oneRole.name}}</option>
+                    </select>
+                    <div *ngIf="getField(i).controls.role.errors && (getField(i).controls.role.touched || getField(i).controls.role.dirty) ">
+                        <div *ngIf="getField(i).controls.role.errors.required">
+                            Department is required
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                        <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="table-primary">
+                                        <td >#</td>
+                                        <td >Resource</td>
+                                        <td >Emp ID</td>
+                                        <td >Total </td>
+                                    </thead>
+                                    <tbody>
+                                        <tr  *ngFor="let anEmployee of demoEng[i]; let i=index" >
+                                            <td >{{i+1}}</td>
+                                            <td>{{anEmployee.empFirstname}} {{anEmployee.empLastname}}</td>
+                                            <td>{{anEmployee.employeeId}}</td>
+                                            <td>{{ i==0?demoEng[i].length : '' }}</td>    
+                                        </tr>
+                                    </tbody>
+                        </table>
+                       
+                        <div *ngIf="getField(i).controls.empId.errors && (getField(i).controls.empId.touched || getField(i).controls.empId.dirty)">
+                            
+                            <div *ngIf="getField(i).controls.empId.errors.required">
+                                Select a resource
+                            </div>
+                            <div *ngIf="getField(i).controls.empId.errors.resourceOnSameRole">
+                                This resource is already selected for the same role
+                            </div>
+                            <div *ngIf="getField(i).controls.empId.errors.resourceAlreadyAllocated">
+                                This resource is already selected for the same role in this project
+                            </div>
+                            <div *ngIf="getField(i).controls.empId.errors.projectNotSelected">
+                                Project or role not selected
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+        </div>
+        </div>
+    </div>
+    
+    </div>
+    
+    </div>
+            

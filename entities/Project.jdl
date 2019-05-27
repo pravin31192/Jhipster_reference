@@ -1,0 +1,24 @@
+entity Project {
+  projectName String
+  clientName String
+  clientCode String
+  projectCode String
+  billableValue Float
+  noOfResources Integer
+  createdBy Integer
+  status Integer
+  type Integer
+  startDate LocalDate
+  endDate LocalDate
+  estimatedStaffHours Float
+  actualStaffHours Float
+  percentageComplete Float
+  details String
+  deliverables String
+  attachments String
+  createdAt LocalDate
+  updatedAt LocalDate
+}
+
+paginate Project with pagination
+service Project with serviceClass

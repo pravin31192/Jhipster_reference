@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+        <div class="col-12">
+            <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+                <h2 id="jhi-billing-heading">Create or edit a Billing</h2>
+                <div>
+                    <!-- <jhi-alert-error></jhi-alert-error> -->
+                    <div class="form-group" [hidden]="!billing.id">
+                        <!-- <label for="id">ID  #<span>{{billing.id}}</span></label> -->
+                        <!-- <input type="text" class="form-control" id="id" name="id"
+                            [(ngModel)]="billing.id" readonly /> -->
+                    </div>
+                    <p style="color:brown; font-size:0.8em">*All fields are required</p>
+                  <div class="row">
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_clientName">Client Name</label>
+                        <select class="form-control" name="clientId" id="field_clientId"
+                            [(ngModel)]="billing.clientId" (change)="loadProjectsOfSelectedClient($event.target.value)">
+                            <option [ngValue]="undefined" disabled selected>Select Client</option>
+                            <option *ngFor="let oneClient of hrmClientsArray" value="{{oneClient.customerId}}">{{oneClient.name}}</option>
+                            
+                        </select>
+                    </div>
+                   </div>
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_project">Project Name</label>
+                        <select class="form-control" name="project" id="field_project" [(ngModel)]="billing.project" (change)="loadResourcesOnProject($event.target.value)" >
+                            <option [ngValue]="undefined" disabled  selected>Select a Project</option>
+                                <option *ngFor="let oneProject of hrmProjectsArray" value="{{oneProject.projectId}}">{{oneProject.name}}</option>
+                        </select>
+                    </div>
+                   </div>
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_resource">Resource Name</label>
+                        <select class="form-control" name="resource" id="field_resource" (change)="loadSalaryAndHoursWorked($event)"
+                            [(ngModel)]="billing.resource">
+                            <option [ngValue]="undefined" disabled  selected>Select Resource</option>
+                            <option *ngFor="let oneResource of resourcesArray" value="{{oneResource.empId}}">{{oneResource.empName}}</option>
+                            
+                        </select>
+                    </div>
+                   </div>
+                  </div>
+                  <div class="row">
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_hoursAllocated">Hours Allocated</label>
+                        <input type="number"  min="0" (keydown)="preventNegativeInput($event)"   class="form-control" name="hoursAllocated" id="field_hoursAllocated"
+                            [(ngModel)]="billing.hoursAllocated" />
+                    </div>
+                   </div>
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_billRate">Bill Rate</label>
+                        <input type="number"  min="0" (keydown)="preventNegativeInput($event)"   class="form-control" name="billRate" id="field_billRate"
+                            [(ngModel)]="billing.billRate" />
+                    </div>
+                   </div>
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_salary">Salary</label>
+                        <input type="number" class="form-control" name="salary" id="field_salary" readonly
+                            [(ngModel)]="billing.salary" />
+                    </div>
+                   </div>
+                  </div>
+                  <div class="row">
+                   <div class="col-4">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_otherCost">Other Cost</label>
+                        <input type="number"  min="0" (keydown)="preventNegativeInput($event)"   class="form-control" name="otherCost" id="field_otherCost"
+                            [(ngModel)]="billing.otherCost" />
+                    </div>
+                   </div>
+                  </div>
+                </div>
+                <div>
+                  
+                    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success  float-right" style="margin-left: 12px">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                    </button>
+                    <button type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'billing/'+ billing.id + '/delete'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-danger float-right" style="margin-left: 12px">
+                        <fa-icon [icon]="'times'"></fa-icon>
+                        <span class="d-none d-md-inline">Delete</span>
+                    </button>
+                    <button type="button" id="cancel-save" class="btn btn-secondary float-right"  (click)="previousState()" style="margin-left: 12px">
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    

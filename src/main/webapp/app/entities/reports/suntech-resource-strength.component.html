@@ -1,0 +1,152 @@
+<div #reportContent>
+        <h2 id="page-heading">
+            <span>Sun Technology Resource Strength</span>
+            <span style="float:right"><button class="btn btn-info"><fa-icon [icon]="'download'" (click)="download()" id="editor"></fa-icon></button></span>
+        </h2>
+        <jhi-alert></jhi-alert>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script> -->
+        <br/>
+        <div class="row" [ngSwitch]="isAuthenticated()">
+                <div class="col-6" *ngSwitchCase="true" >
+                    <div align="center" style="font-size: 20px">Support Staff</div>
+                    <p align="center" >Total: 72</p>
+                    <br>
+                    <div style="display: block">
+                    <canvas baseChart
+                        [data]="doughnutChartData"
+                        [labels]="doughnutChartLabels"
+                        [chartType]="doughnutChartType"
+                        (chartHover)="chartHovered($event)"
+                        (chartClick)="chartClicked($event)"></canvas>
+                    </div>
+                </div>
+                <div class="col-6" *ngSwitchCase="true">
+                        <div align="center" style="font-size: 20px">Engineering Staff</div>
+                        <p align="center" >Total: 290</p>
+                        <br>
+                    <div style="display: block">
+                        <canvas baseChart #baseChart="base-chart"
+                                [data]="pieChartData"
+                                [labels]="pieChartLabels"
+                                [chartType]="doughnutChartType"
+                                (chartHover)="chartHovered($event)"
+                                (chartClick)="chartClicked($event)">
+                        </canvas>
+                    </div>      
+                </div>
+            </div>
+
+
+
+            <!-- Tables of Resources -->
+
+            <!-- <div class="card-body" style="position: relative" formArrayName="multipleResources">
+                <div *ngFor="let singleResource of getAddresses(projectResourceAssignForm); let i=index">
+                    <div>{{singleResource}} </div>
+                </div>
+            </div> -->
+
+            <div>
+            <div class="card-body" id="content">
+                                <div *ngFor="let singleResource of getAddresses(projectResourceAssignForm); let i=index">
+                                <!-- <div [formGroupName]="i"> -->
+                                <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="col-lg-6" style="float:left">
+                                        <div>
+                                            <label for="field_roleName">
+                                                Support Staff
+                                            </label>
+                                        </div>
+                                        
+                                            <!-- <select type="text" class="form-control" name="role" id="field_role" formControlName="role" (change)="loadResourceBasedOnRole($event.target.value, i)">
+                                                <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                                                <option *ngFor="let oneRole of supportArray" value="{{oneRole.id}}">{{oneRole.name}}</option>
+                                            </select> -->
+
+                                            <div *ngFor="let oneRole of newArray; let j = index" >
+                                                <p>{{oneRole.name}}</p>
+                                                        <div > 
+                                                                <div class="table-responsive">
+                                                                        <table class="table">
+                                                                            <thead class="table-primary">
+                                                                                <td >#</td>
+                                                                                <td >Resource</td>
+                                                                                <td >Emp ID</td>
+                                                                                <td >Total </td>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr  *ngFor="let oneEmployee of oneRole.emp | keyvalue; let i=index" >
+                                                                                    <td >{{i+1}}</td>
+                                                                                    <td>{{oneEmployee.value.empFirstname}} {{oneEmployee.value.empLastname}}</td>
+                                                                                    <td>{{oneEmployee.value.employeeId}}</td>
+                                                                                    <td>{{ i==0?oneRole.length : '' }}</td>  
+                                                                                </tr>
+                                                                            </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                
+                                            </div>
+                                        
+                            
+                                        
+                                                
+                                        </div>
+                            
+                            
+                            
+                                    
+                                     <div class="col-lg-6"  style="float:left">
+                                        <div >
+                                            <label class="form-control-label" for="field_roleName">
+                                                Engineering Staff
+                                            </label>
+                                            <!-- <select type="text" class="form-control" name="role" id="field_role" formControlName="role" (change)="loadResourceBasedOnRoleEng($event.target.value, i)">
+                                                <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                                                <option *ngFor="let oneRole of engineeringArray" value="{{oneRole.id}}">{{oneRole.name}}</option>
+                                            </select> -->
+                                        </div>
+                            
+                                        <div *ngFor="let oneEngRole of newEngArray; let j = index" >
+                                            <p>{{oneEngRole.name}}</p>
+                                                    <div > 
+                                                            <div class="table-responsive">
+                                                                    <table class="table">
+                                                                        <thead class="table-primary">
+                                                                            <td >#</td>
+                                                                            <td >Resource</td>
+                                                                            <td >Emp ID</td>
+                                                                            <td >Total </td>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr  *ngFor="let oneEngEmployee of oneEngRole.emp | keyvalue; let i=index" >
+                                                                                <td >{{i+1}}</td>
+                                                                                <td>{{oneEngEmployee.value.empFirstname}} {{oneEngEmployee.value.empLastname}}</td>
+                                                                                <td>{{oneEngEmployee.value.employeeId}}</td>
+                                                                                <td>{{ i==0?oneEngRole.length : '' }}</td>  
+                                                                            </tr>
+                                                                        </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                            
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            </div> 
+
+                        </div>
+
+
+                        <!-- <div id="download">
+                            <img #canvas>
+                            <a #downloadLink></a>
+                          </div> -->
+                       
+</div>

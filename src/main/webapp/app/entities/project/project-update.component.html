@@ -1,0 +1,171 @@
+<div class="row justify-content-center ">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-project-heading">Create or edit a Project</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!project.id">
+                    <!-- <label for="id">ID {{ project.id }}</label> -->
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_clientName">Client Name</label>
+                            <select required class="form-control" name="hrmClientId" id="field_hrm_client_id" [(ngModel)]="project.hrmClientId" (change)="loadProjectsOfSelectedClient($event)">
+                                <option [ngValue]="undefined" disabled  selected>Select Client</option>
+                                <option *ngFor="let oneClient of hrmClientsArray" value="{{oneClient.customerId}}" >{{oneClient.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_hrm_project_id"> Select Project</label>
+                            <select required class="form-control" name="hrmProjectId" id="field_hrm_project_id" [(ngModel)]="project.hrmProjectId">
+                            <option [ngValue]="undefined" disabled selected>Select a Project</option>
+                            <option *ngFor="let oneProject of hrmProjectsArray" value="{{oneProject.projectId}}">{{oneProject.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="typeahead-basic">Client Code</label>
+                            <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="project.clientCode" [ngbTypeahead]="search" name="clientCode" (change)="loadProjectCode($event)" required/>
+                            <pre>{{ model | json }}</pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class='col-lg-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_projectCode">Project Code</label>
+                        <input type="text" class="form-control" name="projectCode" id="field_projectCode" [(ngModel)]="project.projectCode" required />
+                    </div>
+                    </div>
+                    <div class='col-lg-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_billableValue">Billable Value</label>
+                        <input type="number" class="form-control" name="billableValue" id="field_billableValue"
+                            [(ngModel)]="project.billableValue" required />
+                    </div>
+                    </div>
+                    <div class='col-lg-4'>
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_noOfResource">No Of Resource</label>
+                        <input type="number" class="form-control" name="noOfResources" id="field_noOfResource"
+                            [(ngModel)]="project.noOfResources" required />
+                    </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class='col-lg-4'>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_status">Status</label>
+                            <select class="form-control" name="status" id="field_status"
+                                [(ngModel)]="project.status" required >
+                                <option [ngValue]="undefined" disabled  selected>Select Status</option>
+                                <option value="1">NEW</option>
+                                <option value="2">In Progress</option>
+                                <option value="3">Completed</option>
+                                <option value="4">On Hold</option>
+                            </select>
+                        </div>
+                   </div>
+                   <div class='col-lg-4'>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_type">Type</label>
+                            <select type="text" class="form-control" name="type" id="field_type"
+                                [(ngModel)]="project.type" required >
+                                <option [ngValue]="undefined" disabled  selected>Select Type</option>
+                                <option value="1">Fixed</option>
+                                <option value="2">Time and Material</option>
+                            </select>
+                        </div>
+                   </div> 
+                   <div class='col-lg-4'>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_startDate">Start Date</label>
+                            <div class="input-group">
+                                <input id="field_startDate" type="text" class="form-control" name="startDate" ngbDatepicker  #startDateDp="ngbDatepicker" [(ngModel)]="project.startDate" required 
+                                />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                </span>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+                <div class="row">
+                  <div class='col-lg-4'>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_endDate">End Date</label>
+                            <div class="input-group">
+                                <input id="field_endDate" type="text" class="form-control" name="endDate" ngbDatepicker  #endDateDp="ngbDatepicker" [(ngModel)]="project.endDate" required 
+                                />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                                </span>
+                            </div>
+                        </div>
+                  </div> 
+                  <div class='col-lg-4'>
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_estimatedStaffHours">Estimated Staff Hours</label>
+                            <input type="number" class="form-control" name="estimatedStaffHours" id="field_estimatedStaffHours"
+                                [(ngModel)]="project.estimatedStaffHours" required />
+                        </div>
+                  </div>
+                  <div class='col-lg-4'>    
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_percentageComplete">Percentage Complete</label>
+                        <input type="number" class="form-control" name="percentageComplete" id="field_percentageComplete"
+                            [(ngModel)]="project.percentageComplete" required />
+                    </div>
+                    </div>
+                  <!-- <div class='col-lg-4'>  
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_actualStaffHours">Actual Staff Hours</label>
+                            <input type="number" class="form-control" name="actualStaffHours" id="field_actualStaffHours"
+                                [(ngModel)]="project.actualStaffHours" />
+                        </div>
+                  </div>   -->
+                </div>
+                <div class="row"> 
+                   <div class='col-lg-4'>   
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_details">Details</label>
+                            <input type="text" class="form-control" name="details" id="field_details"
+                                [(ngModel)]="project.details" />
+                        </div>
+                   </div> 
+                   <!-- <div class='col-lg-4'>  
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_attachments">Attachments</label>
+                            <input type="text" class="form-control" name="attachments" id="field_attachments"
+                                [(ngModel)]="project.attachments" />
+                        </div>
+                  </div> -->
+                </div> 
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success float-right mr-1">
+                            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                        </button>
+                        <button *ngIf="project.id !== undefined" type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'project/'+ project.id + '/delete'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-danger float-right mr-1">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                        <button type="button" id="cancel-save" class="btn btn-secondary float-right mr-1"  (click)="previousState()">
+                                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </div>
+    
+    

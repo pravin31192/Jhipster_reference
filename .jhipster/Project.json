@@ -1,0 +1,91 @@
+{
+    "name": "Project",
+    "fields": [
+        {
+            "fieldName": "projectName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "clientName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "clientCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "projectCode",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "billableValue",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "noOfResources",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "type",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "startDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "endDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "estimatedStaffHours",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "actualStaffHours",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "percentageComplete",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "details",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "deliverables",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "attachments",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181221121248",
+    "entityTableName": "project",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

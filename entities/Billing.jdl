@@ -1,0 +1,14 @@
+entity Billing{
+  clientName Integer
+  project Integer
+  resource Integer
+  hoursAllocated Double
+  billRate Double
+  salary Double
+  otherCost Double
+  createdAt LocalDate
+  updatedAt LocalDate
+}
+
+paginate Billing with pagination
+service Billing with serviceClass

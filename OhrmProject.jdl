@@ -1,0 +1,10 @@
+entity OhrmProject{
+    projectId String
+    customerId Integer
+    name String
+    description String
+    isDeleted LocalDate
+}
+
+paginate Roles with pagination
+service Roles with serviceClass

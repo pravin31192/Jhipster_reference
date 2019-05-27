@@ -1,0 +1,12 @@
+entity RoleUserMapping{
+    userId Integer
+    roleId Integer
+    userName String
+    roleName String
+    createdAt LocalDate
+    updatedAt LocalDate
+    createdBy Integer
+}
+
+paginate RoleUserMapping with pagination
+service RoleUserMapping with serviceClass

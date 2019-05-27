@@ -1,0 +1,134 @@
+<div>
+        <h2 id="page-heading">
+            <span>Billings</span>
+            <button id="jh-create-entity" class="btn btn-success float-right jh-create-entity create-billing" [routerLink]="['/billing/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span >
+                  Add
+                </span>
+            </button>
+            <!-- <button id="jh-create-entity" class="btn btn-success float-right mr-1 jh-create-entity create-billing" [routerLink]="['/billing/report']">
+                <fa-icon [icon]="'excel-o'"></fa-icon>
+                <span >
+                  Report
+                </span>
+            </button> -->
+        </h2>
+
+        <form (ngSubmit)="search()" #searchForm="ngForm">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_billableValue">Resource name</label>
+                        <input type="text" class="form-control" name="emp_name" id="field_empName" [(ngModel)]="resourceSearch.empName"/>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_billableValue">Project name</label>
+                            <input type="text" class="form-control" name="project_name" id="field_projectName" [(ngModel)]="resourceSearch.projectName"/>
+                        </div>
+                    </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_billableValue">Client name</label>
+                        <input type="text" class="form-control" name="client_name" id="field_clientName" [(ngModel)]="resourceSearch.clientName" />
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_status">Status</label>
+                        <select class="form-control" name="status" id="field_status" [(ngModel)]="projectSearch.projectStatus">
+                        <option [ngValue]="undefined" disabled  selected>Select Status</option>
+                        <option value="1">NEW</option>
+                        <option value="2">In Progress</option>
+                        <option value="3">Completed</option>
+                        <option value="4">On Hold</option>
+                    </select>
+                    </div>
+                </div> -->
+                <!-- <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_type">Type</label>
+                        <select type="text" class="form-control" name="type" id="field_type"
+                        [(ngModel)]="projectSearch.projectType">
+                        <option [ngValue]="undefined" disabled  selected>Select Type</option>
+                        <option value="1">Fixed</option>
+                        <option value="2">Time and Material</option>
+                    </select>
+                    </div>
+                </div> -->
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success ml-1 float-right">Search</button>
+                    <button type="button" class="btn btn-danger float-right" (click)="searchForm.reset()">Reset</button>
+                </div>
+            </div>
+        </form>
+
+        <jhi-alert></jhi-alert>
+        <br/>
+        <div class="table-responsive" *ngIf="billings">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <!-- <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <th jhiSortBy="clientName"><span>Client Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="project"><span>Project Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="resource"><span>Resource Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="hoursAllocated"><span>Hours Allocated</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="billRate"><span>Bill Rate</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="salary"><span>Salary</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="otherCost"><span>Other Cost</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let billing of billings ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/billing', billing.id, 'view' ]">{{billing.id}}</a></td> -->
+                    <td><a  [routerLink]="['/billing', billing.id, 'edit']">{{billing.clientName}}</a></td>
+                    <td>{{billing.projectName}}</td>
+                    <td>{{billing.resourceName}}</td>
+                    <td>{{billing.hoursAllocated}}</td>
+                    <td>{{billing.billRate}}</td>
+                    <td>{{billing.salary}}</td>
+                    <td>{{billing.otherCost}}</td>
+                    <td class="text-right">
+                        <!-- <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/billing', billing.id, 'view' ]"
+                                    class="btn btn-success btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/billing', billing.id, 'edit']"
+                                    class="btn btn-secondary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button> -->
+                            <!-- <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'billing/'+ billing.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button> -->
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="billings && billings.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="projectListOfSize" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+    

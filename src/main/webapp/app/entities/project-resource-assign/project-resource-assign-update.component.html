@@ -1,0 +1,244 @@
+<div class="row justify-content-center">
+    <div class="col-12">
+        <form [formGroup]="projectResourceAssignForm" (submit)="save()">
+            <h2 id="jhi-project-resource-assign-heading">Project-Resource Allocation</h2>
+            <jhi-alert-error></jhi-alert-error>
+            <div class="form-group" [hidden]="!projectResourceAssign.id">
+                <!-- <label for="id">ID # {{projectResourceAssign.id}}</label> -->
+                <!-- <input type="text" class="form-control" id="id" name="id"
+                    [(ngModel)]="projectResourceAssign.id" readonly /> -->
+            </div>
+            <p style="color:brown; font-size:0.8em">*All fields are required</p>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_projectId">Project Name
+                        </label>
+                        
+                        <select type="text" class="form-control" name="projectId" id="field_projectId" formControlName="projectId" (change)="loadStartAndEndDate($event.target.value)">
+                            <option [ngValue]="undefined" disabled  selected>Select a Project</option>
+                            <option *ngFor="let oneProject of projectsArray" value="{{oneProject.id}}">{{oneProject.projectName}}</option>
+                        </select>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.get('projectId').errors?.required && (projectResourceAssignForm.get('projectId').touched || projectResourceAssignForm.get('projectId').dirty)">
+                            Project is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_fromDate">Start Date</label>
+                        <div class="input-group">
+                            <input id="field_fromDate" type="text" class="form-control" name="fromDate" ngbDatepicker  #fromDateDp="ngbDatepicker" formControlName="fromDate" autocomplete="off"
+                            />
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="fromDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            </span>
+                        </div>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.get('fromDate').errors?.required && (projectResourceAssignForm.get('fromDate').touched || projectResourceAssignForm.get('fromDate').dirty)">
+                                From date is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_toDate">End Date</label>
+                        <div class="input-group">
+                            <input id="field_toDate" type="text" class="form-control" name="toDate" ngbDatepicker  #toDateDp="ngbDatepicker" formControlName="toDate" autocomplete="off"
+                            />
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="toDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            </span>
+                        </div>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.controls.toDate.errors?.required && (projectResourceAssignForm.controls.toDate.touched || projectResourceAssignForm.controls.toDate.dirty)">
+                                To date is required
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_toDate">End Date</label>
+                        <div class="input-group">
+                            <input id="field_toDate" type="text" class="form-control" name="toDate" ngbDatepicker  #toDateDp="ngbDatepicker" formControlName="toDate" autocomplete="off"
+                            />
+                            <span class="input-group-append">
+                                <button type="button" class="btn btn-secondary" (click)="toDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            </span>
+                        </div>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.controls.toDate.errors?.required && (projectResourceAssignForm.controls.toDate.touched || projectResourceAssignForm.controls.toDate.dirty)">
+                                To date is required
+                        </div>
+                    </div>
+                </div> -->
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_location">Billing Type</label>
+                        <select class="form-control" name="billingType" id="field_billing-type"
+                            formControlName="billingType">
+                            <option [ngValue]="undefined" disabled  selected>Select Billing type</option>
+                            <option value="1">Fixed</option>
+                            <option value="2">Time and Material</option>
+                        </select>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.get('billingType').errors?.required && (projectResourceAssignForm.get('billingType').touched || projectResourceAssignForm.get('billingType').dirty)">
+                                Billing type is required
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_location">Location</label>
+                        <select type="text" class="form-control" name="location" id="field_location" formControlName="location">
+                            <option [ngValue]="undefined" disabled  selected>Select Location</option>
+                            <option value="1">India</option>
+                            <option value="2">USA</option>
+                        </select>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.get('location').errors?.required && (projectResourceAssignForm.get('location').touched || projectResourceAssignForm.get('location').dirty)">
+                            Location is required
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_estimatedStaffHours">Estimated Working Hours</label>
+                        <input type="number"  min="0" (keydown)="preventNegativeInput($event)"  class="form-control" name="estimatedStaffHours" id="field_estimatedStaffHours" formControlName="estimatedStaffHours" />
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.get('estimatedStaffHours').errors?.required && (projectResourceAssignForm.get('estimatedStaffHours').touched || projectResourceAssignForm.get('estimatedStaffHours').dirty)">
+                                Estimated hours is required
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_actualStaffHours">Actual Working Hours</label>
+                        <input type="number" class="form-control" name="actualStaffHours" id="field_actualStaffHours" formControlName="actualStaffHours"/>
+                        <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.get('actualStaffHours').errors?.required && (projectResourceAssignForm.get('actualStaffHours').touched || projectResourceAssignForm.get('actualStaffHours').dirty)">
+                                Actual Working hours is required
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            <div class="card mb-3 ">
+                <div class="card-header text-white bg-secondary">
+                    Select Resources for the selected project
+                </div>
+                <!-- projectResourceAssignForm.controls.multipleResources.controls 
+                    <div *ngFor="let singleResource of formData.controls; let i=index">
+                    <div *ngFor="let singleResource of getAddresses(projectResourceAssignForm);
+                    projectResourceAssignForm
+                -->
+                
+                <div class="card-body" formArrayName="multipleResources">
+                    <div *ngFor="let singleResource of getAddresses(projectResourceAssignForm); let i=index">
+                        <div [formGroupName]="i">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_roleName">
+                                        Department
+                                    </label>
+                                    <select type="text" class="form-control" name="role" id="field_role" formControlName="role" (change)="loadResourceBasedOnRole($event.target.value, i)">
+                                        <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                                        <option *ngFor="let oneRole of rolesArray" value="{{oneRole.id}}">{{oneRole.name}}</option>
+                                    </select>
+                                    <div class="form-control-feedback text-danger" *ngIf="getField(i).controls.role.errors && (getField(i).controls.role.touched || getField(i).controls.role.dirty) ">
+                                        <div *ngIf="getField(i).controls.role.errors.required">
+                                            Department is required
+                                        </div>
+                                    </div>
+                                    <!-- <div class="form-control-feedback text-danger" *ngIf="getField(i).controls.role.errors && (getField(i).controls.role.touched || getField(i).role.touched.dirty)">
+                                        <div *ngIf="getField(i).controls.role.errors.required">
+                                            Roles is required
+                                        </div>   
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_empId">Resource Name</label>
+                                    <select type="text" class="form-control" name="empId" id="field_empId" formControlName="empId" (change)="validateForResourceField($event.target.value, i); checkResourceAlreadyInSelectedProject($event.target.value, i)" >
+                                        <option [ngValue]="undefined" disabled  selected>Select Resource</option>
+                                        <!-- <option *ngFor="let oneResource of demo[i]" value="{{oneResource.userId}}">{{oneResource.userName}}</option> -->
+                                        <option *ngFor="let oneEmployee of demo[i]" value="{{oneEmployee.empNumber}}">{{oneEmployee.empFirstname}} {{oneEmployee.empLastname}}</option>
+                                    </select>
+                                    <div class="form-control-feedback text-danger" *ngIf="getField(i).controls.empId.errors && (getField(i).controls.empId.touched || getField(i).controls.empId.dirty)">
+                                        
+                                        <div *ngIf="getField(i).controls.empId.errors.required">
+                                            Select a resource
+                                        </div>
+                                        <div *ngIf="getField(i).controls.empId.errors.resourceOnSameRole">
+                                            This resource is already selected for the same role
+                                        </div>
+                                        <div *ngIf="getField(i).controls.empId.errors.resourceAlreadyAllocated">
+                                            This resource is already selected for the same role in this project
+                                        </div>
+                                        <div *ngIf="getField(i).controls.empId.errors.projectNotSelected">
+                                            Project or role not selected
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_percentageOfWork">Percentage Allocation</label>
+                                    <input type="number"  min="0" (keydown)="preventNegativeInput($event)"  class="form-control" name="percentageOfWork" id="field_percentageOfWork" formControlName="percentageOfWork" (change)="validatePercentageAllocation($event.target.value, i)" />
+                                    <div class="form-control-feedback text-danger" *ngIf="getField(i).controls.percentageOfWork.errors && (getField(i).controls.percentageOfWork.touched || getField(i).controls.percentageOfWork.dirty)">
+                                        
+                                        <div *ngIf="getField(i).controls.percentageOfWork.errors.required">
+                                            Percentage is required
+                                        </div>
+                                        
+                                        <div *ngIf="getField(i).controls.percentageOfWork.errors.invalidPercentage">
+                                            Entered values is greater than available percentage
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="form-control-label" for="field_billValue">Bill Rate</label>
+                                    <input type="number"  min="0" (keydown)="preventNegativeInput($event)"  class="form-control" name="billValue" id="field_billValue" formControlName="billValue"/>
+                                    <!-- <div class="form-control-feedback text-danger" *ngIf="projectResourceAssignForm.controls.multipleResources.controls[i].controls.billValue.errors && (projectResourceAssignForm.controls.multipleResources.controls[i].controls.billValue.touched || projectResourceAssignForm.controls.multipleResources.controls[i].controls.billValue.touched.dirty)">
+                                            Bill value is required
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <label class="form-control-label mu-2">&nbsp;</label>
+                                <button [disabled]="!projectResourceAssignForm.get('multipleResources').valid" (click)="addOneMoreResource(i)" type="button" class="btn btn-success mr-1 mt-4">
+                                    <fa-icon [icon]="'plus'"></fa-icon>
+                                </button>
+                            
+                                <label class="form-control-label">&nbsp;</label>
+                                <button  (click)="removeResource(i)" *ngIf=" i > 0" type="button" class="btn btn-danger mr-1 mt-4">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+            <div class="row">
+                <div class="col-12">
+                    <!-- [disabled]="!projectResourceAssignForm.valid" -->
+                <button type="submit" id="save-entity" [disabled]="!projectResourceAssignForm.valid" class="btn btn-success float-right mr-1">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+                <button *ngIf="projectResourceAssign.id !== undefined" type="submit" [routerLink]="['/', { outlets: { popup: 'project-resource-assign/'+ projectResourceAssign.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge"
+                class="btn btn-danger float-right mr-1">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                </button>
+                <button type="button" id="cancel-save" class="btn btn-secondary float-right mr-1"    (click)="previousState()" >
+                            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                </div>
+            </div>
+    </form>
+    </div>
+</div>
+    

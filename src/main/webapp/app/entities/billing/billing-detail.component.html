@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="billing">
+            <h2><span>Billing</span> {{billing.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Client Name</span></dt>
+                <dd>
+                    <span>{{billing.clientName}}</span>
+                </dd>
+                <dt><span>Project</span></dt>
+                <dd>
+                    <span>{{billing.project}}</span>
+                </dd>
+                <dt><span>Resource</span></dt>
+                <dd>
+                    <span>{{billing.resource}}</span>
+                </dd>
+                <dt><span>Hours Allocated</span></dt>
+                <dd>
+                    <span>{{billing.hoursAllocated}}</span>
+                </dd>
+                <dt><span>Bill Rate</span></dt>
+                <dd>
+                    <span>{{billing.billRate}}</span>
+                </dd>
+                <dt><span>Salary</span></dt>
+                <dd>
+                    <span>{{billing.salary}}</span>
+                </dd>
+                <dt><span>Other Cost</span></dt>
+                <dd>
+                    <span>{{billing.otherCost}}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{billing.createdAt}}</span>
+                </dd>
+                <dt><span>Updated At</span></dt>
+                <dd>
+                    <span>{{billing.updatedAt}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/billing', billing.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

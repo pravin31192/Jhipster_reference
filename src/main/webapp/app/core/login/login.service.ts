@@ -1,0 +1,44 @@
+import { Injectable } from '@angular/core';
+
+import { AccountService } from '../auth/account.service';
+import { AuthServerProvider } from '../auth/auth-jwt.service';
+import { MainService } from 'app/layouts/main/main.service';
+
+@Injectable({ providedIn: 'root' })
+export class LoginService {
+    constructor(private accountService: AccountService, private authServerProvider: AuthServerProvider, private mainService: MainService) {}
+
+    login(credentials, callback?) {
+        const cb = callback || function() {};
+
+        return new Promise((resolve, reject) => {
+            this.authServerProvider.login(credentials).subscribe(
+                data => {
+                    this.accountService.identity(true).then(account => {
+                        resolve(data);
+                    });
+                    this.mainService.refreshMainCompomnent();
+                    return cb();
+                },
+                err => {
+                    this.logout();
+                    reject(err);
+                    return cb(err);
+                }
+            );
+        });
+    }
+
+    loginWithToken(jwt, rememberMe) {
+        return this.authServerProvider.loginWithToken(jwt, rememberMe);
+    }
+
+    logout() {
+        this.authServerProvider.logout().subscribe();
+        this.accountService.authenticate(null);
+    }
+
+    callMainServiceFunctionToRefreshTheMainComponent() {
+        this.mainService.refreshMainCompomnent();
+    }
+}

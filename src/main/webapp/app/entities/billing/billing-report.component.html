@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="table-responsive-lg">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Client Name</th>
+                    <ng-container *ngFor="let oneMonth of monthArray; let i = index">
+                            <th scope="col">
+                                {{oneMonth[i+1]}}
+                            </th>
+                            <th scope="col" *ngIf="(i+1) % 3 == 0;">
+                                    Q{{(i+1) / 3}}
+                            </th>
+                    </ng-container>
+                    <th scope="col">
+                            Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let singleRow of initialBillingReport; let i = index">
+                    <td>{{singleRow.clientName}}</td>
+                    <td>{{singleRow.projectName}}</td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,1,i);else displayZero">
+                        {{singleRow.total | currency}}
+                    </td>
+                    
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,2,i);else displayZero"">
+                        {{singleRow.total | currency}}
+                    </td>
+
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,3,i);else displayZero"">  
+                        {{singleRow.total  | currency}}
+                    </td>
+                    
+                    <td>Q1 total</td>
+
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,4,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,5,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,6,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td>Q2 value</td>
+
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,7,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,8,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,9,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+
+                    <td>Q3 value</td>
+
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,10,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,11,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    <td *ngIf="getCheck(singleRow.fromMonth,singleRow.toMonth,12,i);else displayZero"">  
+                            {{singleRow.total | currency}}
+                    </td>
+                    
+                    <td>Q4 value</td>
+
+                    <td>10000</td>
+
+                    <ng-template #displayZero>
+                        <td>$0</td>
+                    </ng-template>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

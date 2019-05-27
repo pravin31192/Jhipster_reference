@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="project">
+            <h2><span>Project</span> {{project.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Project Name</span></dt>
+                <dd>
+                    <span>{{project.projectName}}</span>
+                </dd>
+                <dt><span>Client Name</span></dt>
+                <dd>
+                    <span>{{project.clientName}}</span>
+                </dd>
+                <dt><span>Client Code</span></dt>
+                <dd>
+                    <span>{{project.clientCode}}</span>
+                </dd>
+                <dt><span>Project Code</span></dt>
+                <dd>
+                    <span>{{project.projectCode}}</span>
+                </dd>
+                <dt><span>Billable Value</span></dt>
+                <dd>
+                    <span>{{project.billableValue}}</span>
+                </dd>
+                <dt><span>No Of Resources</span></dt>
+                <dd>
+                    <span>{{project.noOfResources}}</span>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <span>{{project.createdBy}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{project.status}}</span>
+                </dd>
+                <dt><span>Type</span></dt>
+                <dd>
+                    <span>{{project.type}}</span>
+                </dd>
+                <dt><span>Start Date</span></dt>
+                <dd>
+                    <span>{{project.startDate}}</span>
+                </dd>
+                <dt><span>End Date</span></dt>
+                <dd>
+                    <span>{{project.endDate}}</span>
+                </dd>
+                <dt><span>Estimated Staff Hours</span></dt>
+                <dd>
+                    <span>{{project.estimatedStaffHours}}</span>
+                </dd>
+                <dt><span>Actual Staff Hours</span></dt>
+                <dd>
+                    <span>{{project.actualStaffHours}}</span>
+                </dd>
+                <dt><span>Percentage Complete</span></dt>
+                <dd>
+                    <span>{{project.percentageComplete}}</span>
+                </dd>
+                <dt><span>Details</span></dt>
+                <dd>
+                    <span>{{project.details}}</span>
+                </dd>
+                <dt><span>Deliverables</span></dt>
+                <dd>
+                    <span>{{project.deliverables}}</span>
+                </dd>
+                <dt><span>Attachments</span></dt>
+                <dd>
+                    <span>{{project.attachments}}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{project.createdAt}}</span>
+                </dd>
+                <dt><span>Updated At</span></dt>
+                <dd>
+                    <span>{{project.updatedAt}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/project', project.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

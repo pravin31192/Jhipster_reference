@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-12">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-role-user-mapping-heading">Create or edit a Role User Mapping</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!roleUserMapping.id">
+                    <label for="id">ID # {{roleUserMapping.id}}</label>
+                    <!-- <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="roleUserMapping.id" readonly /> -->
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="form-control-label">Select Department</label>
+                            <select class="form-control" name="subunit" id="field_subunit"
+                                required (change)="loadEmployeeFromDepartment($event.target.value)">
+                                <option [ngValue]="undefined" disabled  selected>Select Department</option>
+                                <option *ngFor="let oneSubunit of subUnitsArray" value="{{oneSubunit.id}}">{{oneSubunit.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_employee_id">Employee </label>
+                            <select type="number" class="form-control" name="employeeId" id="field_employee_id"
+                            [(ngModel)]="roleUserMapping.userId">
+                                <option [ngValue]="undefined" disabled  selected>Select Employee</option>
+                                    <option *ngFor="let oneEmployee of employeesInDepartment" value="{{oneEmployee.empNumber}}">{{oneEmployee.empFirstname}} {{oneEmployee.empLastname}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="form-control-label" for="field_roleId">Role Id</label>
+                            <select type="text" class="form-control" name="role" id="field_role" [(ngModel)]="roleUserMapping.roleId">
+                                    <option [ngValue]="undefined" disabled  selected>Select Role</option>
+                                    <option *ngFor="let oneRole of rolesArray" value="{{oneRole.id}}">{{oneRole.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-success float-right" style="margin-left: 12px">
+                        <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+                <button *ngIf="roleUserMapping.id !== undefined" type="submit"
+                        [routerLink]="['/', { outlets: { popup: 'role-user-mapping/'+ roleUserMapping.id + '/delete'} }]"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        class="btn btn-danger float-right" style="margin-left: 12px">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                </button>
+                <button type="button" id="cancel-save" class="btn btn-secondary float-right"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

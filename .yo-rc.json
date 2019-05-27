@@ -1,0 +1,32 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.sun.prms"
+        },
+        "jhipsterVersion": "5.7.2",
+        "applicationType": "monolith",
+        "baseName": "prms",
+        "packageName": "com.sun.prms",
+        "packageFolder": "com/sun/prms",
+        "serverPort": "8080",
+        "authenticationType": "jwt",
+        "cacheProvider": "no",
+        "websocket": false,
+        "databaseType": "sql",
+        "devDatabaseType": "mysql",
+        "prodDatabaseType": "mysql",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": false,
+        "buildTool": "maven",
+        "enableSwaggerCodegen": false,
+        "jwtSecretKey": "ZGM3NjQwMzUyOGE1NGY0YjljYjk1MjUzYTYyMDZmNzBiOTQ2MjMwOGM2M2YwZGIyMGQyMmIyODdlMDQ2OThmNjgwMzViNGE4OGYxNWNkZjlmODg5NzY0YzkwMzQ3MjcwNDA3YmIzMDFhNmExYWY5ZTBhMGIyMmQ4NDNmYmRiMTA=",
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": [],
+        "jhiPrefix": "jhi",
+        "otherModules": [],
+        "enableTranslation": false
+    }
+}

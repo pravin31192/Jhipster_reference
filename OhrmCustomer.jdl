@@ -1,0 +1,9 @@
+entity OhrmCustomer{
+    customerId Integer
+    name String
+    description String
+    isDeleted Integer
+}
+
+paginate OhrmCustomer with pagination
+service OhrmCustomer with serviceClass

@@ -1,0 +1,41 @@
+<div class="card mt-3">
+    <div class="card-header">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            View Resource by project
+        </button>
+    </div>
+    <div class="card-body" id="collapseExample">
+        <div class="col-lg-3">
+            <label class="form-control-label" for="field_projectId">Project Name
+                    </label>
+            <select type="text" class="form-control" name="projectId" id="field_projectId" (change)="getResourcesInProject($event.target.value)" >
+                <option [ngValue]="undefined" disabled  selected>Select a Project</option>
+                <option *ngFor="let oneProject of projectsInPrms" value="{{oneProject.id}}">{{oneProject.projectName}}</option>
+            </select>
+        </div>
+        <div class="row mt-2" *ngIf="resourcesInProject">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-primary">
+                        <td>#</td>
+                        <td>Resource</td>
+                        <td>% of Allocation</td>
+                        <td>Bill value</td>
+                        <td>From</td>
+                        <td>To</td>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let oneResource of resourcesInProject; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{oneResource.empName}}</td>
+                            <td>{{oneResource.percentageOfWork}}</td>
+                            <td>{{oneResource.billValue}}</td>
+                            <td>{{oneResource.fromDate}}</td>
+                            <td>{{oneResource.toDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

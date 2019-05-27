@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="projectResourceAssign">
+            <h2><span>Project Resource Assign</span> {{projectResourceAssign.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Project Id</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.projectId}}</span>
+                </dd>
+                <dt><span>Emp Id</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.empId}}</span>
+                </dd>
+                <dt><span>Role</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.role}}</span>
+                </dd>
+                <dt><span>From Date</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.fromDate}}</span>
+                </dd>
+                <dt><span>To Date</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.toDate}}</span>
+                </dd>
+                <dt><span>Billing Type</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.billingType}}</span>
+                </dd>
+                <dt><span>Bill Value</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.billValue}}</span>
+                </dd>
+                <dt><span>Percentage Of Work</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.percentageOfWork}}</span>
+                </dd>
+                <dt><span>Project Name</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.projectName}}</span>
+                </dd>
+                <dt><span>Emp Name</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.empName}}</span>
+                </dd>
+                <dt><span>Role Name</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.roleName}}</span>
+                </dd>
+                <dt><span>Client Name</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.clientName}}</span>
+                </dd>
+                <dt><span>Estimated Staff Hours</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.estimatedStaffHours}}</span>
+                </dd>
+                <dt><span>Actual Staff Hours</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.actualStaffHours}}</span>
+                </dd>
+                <dt><span>Location</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.location}}</span>
+                </dd>
+                <dt><span>Status</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.status}}</span>
+                </dd>
+                <dt><span>Created At</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.createdAt}}</span>
+                </dd>
+                <dt><span>Updated At</span></dt>
+                <dd>
+                    <span>{{projectResourceAssign.updatedAt}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/project-resource-assign', projectResourceAssign.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

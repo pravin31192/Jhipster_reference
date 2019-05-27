@@ -1,0 +1,45 @@
+<div class="card">
+    <div class="card-header">
+        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#percentageAvailale" aria-expanded="false" aria-controls="collapseExample">
+            View Resource by Client
+        </button>
+    </div>
+    <div class="card-body" id="percentageAvailale">
+        <div class="col-lg-3">
+            <label class="form-control-label" for="field_projectId">Select Option</label>
+            <select type="text" class="form-control" name="projectId" id="field_projectId" (change)="getResourcesOnClient($event.target.value)" >
+                <option [ngValue]="undefined" disabled  selected>Select Client</option>
+                <option *ngFor="let oneClient of clientsInHRM" value="{{oneClient.customerId}}">{{oneClient.name}}</option>
+                
+            </select>
+        </div>
+        <div class="row mt-2" *ngIf="resourcesOnClients">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead class="table-primary">
+                        <td>#</td>
+                        <td>Resource</td>
+                        <td>Project Name</td>
+                        <td>% of Allocation</td>
+                        <td>Available Percentage</td>
+                        <td>Bill value</td>
+                        <td>From</td>
+                        <td>To</td>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let oneResource of resourcesOnClients; let i=index">
+                            <td>{{i+1}}</td>
+                            <td>{{oneResource.employeeName}}</td>
+                            <td>{{oneResource.projectName}}</td>
+                            <td>{{oneResource.percentageOfAllocation}}</td>
+                            <td>{{100 - oneResource.totalAllocation}}</td>
+                            <td>{{oneResource.billValue  | currency }}</td>
+                            <td>{{oneResource.fromDate}}</td>
+                            <td>{{oneResource.toDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

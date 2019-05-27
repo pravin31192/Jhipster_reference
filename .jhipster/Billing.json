@@ -1,0 +1,51 @@
+{
+    "name": "Billing",
+    "fields": [
+        {
+            "fieldName": "clientName",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "project",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "resource",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "hoursAllocated",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "billRate",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "otherCost",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "LocalDate"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181221122408",
+    "entityTableName": "billing",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

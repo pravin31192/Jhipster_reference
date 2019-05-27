@@ -1,0 +1,162 @@
+<div>
+        <h2 id="page-heading">
+            <span>Projects</span>
+            <button id="jh-create-entity" class="btn btn-success float-right jh-create-entity create-project" [routerLink]="['/project/new']" 
+            *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_SALES_MANAGER']"
+            >
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span >
+                  Add
+                </span>
+            </button>
+        </h2>
+        <jhi-alert></jhi-alert>
+        <br/>
+        <form (ngSubmit)="search()" #searchForm="ngForm" >
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="typeahead-basic">Client Name</label>
+                        <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="projectSearch.clientName" [ngbTypeahead]="searchClient" name="clientName" (selectItem)="loadProjectsOfClient($event)"/>
+                        <pre>{{ model | json }}</pre>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label for="typeahead-basic">Project Name</label>
+                        <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="projectSearch.projectName" [ngbTypeahead]="searchProjects" name="projectName" />
+                        <pre>{{ model | json }}</pre>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_status">Status</label>
+                        <select class="form-control" name="status" id="field_status" [(ngModel)]="projectSearch.projectStatus">
+                        <option [ngValue]="undefined" disabled  selected>Select Status</option>
+                        <option value="1">NEW</option>
+                        <option value="2">In Progress</option>
+                        <option value="3">Completed</option>
+                        <option value="4">On Hold</option>
+                    </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_type">Type</label>
+                        <select type="text" class="form-control" name="type" id="field_type"
+                        [(ngModel)]="projectSearch.projectType">
+                        <option [ngValue]="undefined" disabled  selected>Select Type</option>
+                        <option value="1">Fixed</option>
+                        <option value="2">Time and Material</option>
+                    </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="form-control-label" for="field_billableValue">Project Complete</label>
+                        <input type="text" class="form-control" name="percentage_complete" id="field_percentage_complete" [(ngModel)]="projectSearch.percentageComplete"/>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success ml-1 float-right">Search</button>
+                    <button type="button" class="btn btn-danger float-right" (click)="searchForm.reset()">Reset</button>
+                    
+                </div>
+            </div>
+        </form>
+        
+        <div class="table-responsive mt-3" *ngIf="projects">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <!-- <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <th jhiSortBy="projectName"><span>Project Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="clientName"><span>Client Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <!-- <th jhiSortBy="clientCode"><span>Client Code</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <!-- <th jhiSortBy="projectCode"><span>Project Code</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <th jhiSortBy="billableValue"><span>Billable Value</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="noOfResources"><span>No Of Resource</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <!-- <th jhiSortBy="createdBy"><span>Created By</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <th jhiSortBy="status"><span>Status</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="type"><span>Type</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="startDate"><span>Start Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="endDate"><span>End Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <!-- <th jhiSortBy="estimatedStaffHours"><span>Estimated Hours</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="actualStaffHours"><span>Actual Hours</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <th jhiSortBy="percentageComplete"><span>Complete %</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <!-- <th jhiSortBy="details"><span>Details</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <!-- <th jhiSortBy="deliverables"><span>Deliverables</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <!-- <th jhiSortBy="attachments"><span>Attachments</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <!-- <th jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="updatedAt"><span>Updated At</span> <fa-icon [icon]="'sort'"></fa-icon></th> -->
+                <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let project of projects ;trackBy: trackId">
+                    <!-- <td><a [routerLink]="['/project', project.id, 'view' ]">{{project.id}}</a></td> -->
+                    <td><a  [routerLink]="['/project', project.id, 'edit']">{{project.projectName}}</a></td>
+                    <td>{{project.clientName}}</td>
+                    <!-- <td>{{project.clientCode}}</td> -->
+                    <!-- <td>{{project.projectCode}}</td> -->
+                    <td>{{project.billableValue}}</td>
+                    <td>{{project.noOfResources}}</td>
+                    <!-- <td>{{project.createdBy}}</td> -->
+                    <td>{{getProjectStatusInString(project.status)}}</td>
+                    <td>{{getProjectTypeInString(project.type)}}</td>
+                    <td>{{project.startDate | date:'mediumDate'}}</td>
+                    <td>{{project.endDate | date:'mediumDate'}}</td>
+                    <!-- <td>{{project.estimatedStaffHours}}</td>
+                    <td>{{project.actualStaffHours}}</td> -->
+                    <td>{{project.percentageComplete}}</td>
+                    <!-- <td>{{project.details}}</td> -->
+                    <!-- <td>{{project.deliverables}}</td> -->
+                    <!-- <td>{{project.attachments}}</td> -->
+                    <!-- <td>{{project.createdAt}}</td>
+                    <td>{{project.updatedAt}}</td> -->
+                    <td class="text-right">
+                        <!-- <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['/project', project.id, 'view' ]"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/project', project.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'project/'+ project.id + '/delete'} }]"
+                                    replaceUrl="true"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div> -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="projects && projects.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="projectListOfSize" [maxSize]="2" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="40" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    

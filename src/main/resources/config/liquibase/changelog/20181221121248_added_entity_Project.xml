@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Project.
+    -->
+    <changeSet id="20181221121248-1" author="jhipster">
+        <createTable tableName="project">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="project_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="client_name" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="client_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="project_code" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="billable_value" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="no_of_resources" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_by" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="status" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="type" type="integer">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="start_date" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="end_date" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="estimated_staff_hours" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="actual_staff_hours" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="percentage_complete" type="${floatType}">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="details" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="deliverables" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="attachments" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="created_at" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="updated_at" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

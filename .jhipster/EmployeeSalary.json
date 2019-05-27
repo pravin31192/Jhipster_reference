@@ -1,0 +1,35 @@
+{
+    "name": "EmployeeSalary",
+    "fields": [
+        {
+            "fieldName": "employeeId",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "salary",
+            "fieldType": "Float"
+        },
+        {
+            "fieldName": "createdAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "updatedAt",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "createdBy",
+            "fieldType": "Integer"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20181221125505",
+    "entityTableName": "employee_salary",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

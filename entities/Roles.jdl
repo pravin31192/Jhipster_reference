@@ -1,0 +1,9 @@
+entity Roles{
+    name String
+    description String
+    createdAt LocalDate
+    updatedAt LocalDate
+}
+
+paginate Roles with pagination
+service Roles with serviceClass

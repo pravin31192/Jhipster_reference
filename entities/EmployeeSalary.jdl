@@ -1,0 +1,10 @@
+entity EmployeeSalary{
+    employeeId Integer
+    salary Float
+    createdAt LocalDate
+    updatedAt LocalDate
+    createdBy Integer
+}
+
+paginate EmployeeSalary with pagination
+service EmployeeSalary with serviceClass
